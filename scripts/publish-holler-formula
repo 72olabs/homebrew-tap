@@ -1,0 +1,40 @@
+#!/bin/sh
+set -eu
+
+if [ "$#" -ne 1 ]; then
+  echo "usage: $0 VERSION" >&2
+  exit 2
+fi
+
+version=${1#v}
+case "$version" in
+  ""|*[!0-9A-Za-z.-]*)
+    echo "invalid version: $1" >&2
+    exit 2
+    ;;
+esac
+
+script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+repository_dir=$(dirname -- "$script_dir")
+template="$repository_dir/Formula/holler.rb.tmpl"
+formula="$repository_dir/Formula/holler.rb"
+archive=$(mktemp "${TMPDIR:-/tmp}/holler-source.XXXXXX")
+rendered=$(mktemp "${TMPDIR:-/tmp}/holler-formula.XXXXXX")
+trap 'rm -f "$archive" "$rendered"' EXIT HUP INT TERM
+
+url="https://github.com/72olabs/holler/archive/refs/tags/v${version}.tar.gz"
+curl --fail --location --silent --show-error "$url" --output "$archive"
+checksum=$(shasum -a 256 "$archive" | awk '{print $1}')
+
+sed \
+  -e "s/@VERSION@/$version/g" \
+  -e "s/@SHA256@/$checksum/g" \
+  "$template" > "$rendered"
+
+ruby -c "$rendered" >/dev/null
+mv "$rendered" "$formula"
+
+echo "rendered $formula"
+echo "version: $version"
+echo "source:  $url"
+echo "sha256:  $checksum"
