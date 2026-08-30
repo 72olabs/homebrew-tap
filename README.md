@@ -25,9 +25,9 @@ Publish the matching tag in `72olabs/holler` first. Then generate the formula
 from that immutable GitHub source archive:
 
 ```sh
-./scripts/publish-holler-formula 0.1.0-alpha.1
+./scripts/publish-holler-formula 0.1.0-alpha.2
 git add Formula/holler.rb
-git commit -m "holler 0.1.0-alpha.1"
+git commit -m "holler 0.1.0-alpha.2"
 ```
 
 The generator downloads the tag archive, calculates its SHA-256 checksum, and
