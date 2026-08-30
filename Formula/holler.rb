@@ -1,8 +1,8 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
   homepage "https://github.com/72olabs/holler"
-  url "https://github.com/72olabs/holler/archive/refs/tags/v0.1.0-alpha.1.tar.gz"
-  sha256 "b28b2150ccbcf4f6147a1996b426830fe68cb0f441504de9ba65fc628a3b7d21"
+  url "https://github.com/72olabs/holler/archive/refs/tags/v0.1.0-alpha.2.tar.gz"
+  sha256 "bc9af2df7db79c7e0b4f039aff8470bd3572fb207b7ec0a4b7f4cff0c2ae91d2"
   license "Apache-2.0"
 
   depends_on "go" => :build
