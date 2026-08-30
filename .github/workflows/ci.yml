@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  repository-checks:
+    name: Repository checks (Ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate formula Ruby
+        run: |
+          ruby -c Formula/holler.rb
+          ruby -c Formula/holler.rb.tmpl
+
+      - name: Check publisher script
+        run: shellcheck scripts/publish-holler-formula
+
+  formula:
+    name: Formula install and test (macOS)
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install formula
+        run: |
+          brew tap 72olabs/tap "$GITHUB_WORKSPACE"
+          brew install 72olabs/tap/holler
+
+      - name: Test formula
+        run: brew test holler
