@@ -23,7 +23,15 @@ rendered=$(mktemp "${TMPDIR:-/tmp}/holler-formula.XXXXXX")
 trap 'rm -f "$archive" "$rendered"' EXIT HUP INT TERM
 
 url="https://github.com/72olabs/holler/archive/refs/tags/v${version}.tar.gz"
-curl --fail --location --silent --show-error "$url" --output "$archive"
+if ! curl --fail --location --silent --show-error "$url" --output "$archive"; then
+  if ! command -v gh >/dev/null 2>&1; then
+    echo "public archive unavailable and gh is not installed for authenticated fallback" >&2
+    exit 1
+  fi
+  token=$(gh auth token)
+  printf 'header = "Authorization: Bearer %s"\n' "$token" |
+    curl --config - --fail --location --silent --show-error "$url" --output "$archive"
+fi
 checksum=$(shasum -a 256 "$archive" | awk '{print $1}')
 
 sed \
@@ -32,6 +40,7 @@ sed \
   "$template" > "$rendered"
 
 ruby -c "$rendered" >/dev/null
+chmod 0644 "$rendered"
 mv "$rendered" "$formula"
 
 echo "rendered $formula"
