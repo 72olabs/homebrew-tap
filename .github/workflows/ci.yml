@@ -39,3 +39,6 @@ jobs:
 
       - name: Test formula
         run: brew test holler
+
+      - name: Audit formula
+        run: brew audit --strict 72olabs/tap/holler
