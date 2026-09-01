@@ -1,14 +1,14 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
   homepage "https://github.com/72olabs/holler"
-  url "https://github.com/72olabs/holler/archive/refs/tags/v0.1.0-alpha.2.tar.gz"
-  sha256 "bc9af2df7db79c7e0b4f039aff8470bd3572fb207b7ec0a4b7f4cff0c2ae91d2"
+  url "https://github.com/72olabs/holler/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "816fd55dd948de6b8a3ce5c3b5a81180fac3d2769b0f68c7883c2f0c5205b685"
   license "Apache-2.0"
 
   depends_on "go" => :build
 
   def install
-    commit = "v#{version}"
+    commit = "6ee24e77bec4447914347572f8b4317b1aed3a13"
     built_at = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     ldflags = %W[
       -s -w
@@ -24,6 +24,7 @@ class Holler < Formula
     marketplace.install "connectors/marketplace/.agents", "connectors/marketplace/.claude-plugin"
     (marketplace/"plugins").install "connectors/marketplace/plugins/holler"
     (marketplace/"plugins").install "connectors/marketplace/plugins/claude-holler"
+    (marketplace/"plugins").install "connectors/marketplace/plugins/opencode-holler"
     doc.install "README.md", "RELEASE-NOTES.md", "SECURITY.md"
   end
 
@@ -41,6 +42,8 @@ class Holler < Formula
 
   test do
     assert_match "local agent communication CLI", shell_output("#{bin}/holler help")
+    assert_match version.to_s, shell_output("#{bin}/holler version")
     assert_predicate bin/"hollerd", :executable?
+    assert_predicate pkgshare/"marketplace/plugins/opencode-holler/connector.json", :file?
   end
 end
