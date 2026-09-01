@@ -25,7 +25,7 @@ Publish the matching tag in `72olabs/holler` first. Then generate the formula
 from that immutable GitHub source archive:
 
 ```sh
-VERSION=0.2.0
+VERSION=0.5.1
 ./scripts/publish-holler-formula "$VERSION"
 git add Formula/holler.rb
 git commit -m "holler $VERSION"
