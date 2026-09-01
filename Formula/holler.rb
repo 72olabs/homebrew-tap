@@ -1,14 +1,14 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
   homepage "https://github.com/72olabs/holler"
-  url "https://github.com/72olabs/holler/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "816fd55dd948de6b8a3ce5c3b5a81180fac3d2769b0f68c7883c2f0c5205b685"
+  url "https://github.com/72olabs/holler/archive/refs/tags/v0.5.1.tar.gz"
+  sha256 "bb545f7bf601d9739d7b5de52ac5d8fede0165d313486158a85119211bfd1963"
   license "Apache-2.0"
 
   depends_on "go" => :build
 
   def install
-    commit = "6ee24e77bec4447914347572f8b4317b1aed3a13"
+    commit = "a55a0d15f5f0f8dd37be32b4d18394a8b6a03f85"
     built_at = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     ldflags = %W[
       -s -w
