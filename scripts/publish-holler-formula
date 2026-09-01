@@ -34,7 +34,7 @@ if ! curl --fail --location --silent --show-error "$url" --output "$archive"; th
 fi
 checksum=$(shasum -a 256 "$archive" | awk '{print $1}')
 
-refs=$(git ls-remote https://github.com/72olabs/holler.git \
+refs=$(GIT_TERMINAL_PROMPT=0 git ls-remote https://github.com/72olabs/holler.git \
   "refs/tags/v${version}" "refs/tags/v${version}^{}" 2>/dev/null || true)
 commit=$(printf '%s\n' "$refs" | awk '$2 ~ /\^\{\}$/ {print $1; exit}')
 if [ -z "$commit" ]; then
