@@ -1,14 +1,14 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
   homepage "https://github.com/72olabs/holler"
-  url "https://github.com/72olabs/holler/archive/refs/tags/v0.6.1.tar.gz"
-  sha256 "0e755e210b203ed1d46143db1cbd63cbb6ccfdedda45685253418cd3565b4687"
+  url "https://github.com/72olabs/holler/archive/refs/tags/v0.7.0.tar.gz"
+  sha256 "ad190660fe23922c1dd071ad14d8f473bdc42298ca2de2fd5e5c4a0e04e50077"
   license "Apache-2.0"
 
   depends_on "go" => :build
 
   def install
-    commit = "d92830cd4a6002c0d954ae95da085515515d7566"
+    commit = "a919199502b16a16718eb07339e1cb881582724e"
     built_at = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     ldflags = %W[
       -s -w
@@ -33,9 +33,6 @@ class Holler < Formula
       Configure each harness once after install or upgrade:
         holler setup claude
         holler setup codex
-
-      When upgrading from 0.6.0, reconnect each running harness once to load
-      the permanent MCP capability bridge.
 
       Before uninstalling the formula, remove each configured harness:
         holler setup claude --remove
