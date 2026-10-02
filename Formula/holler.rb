@@ -1,7 +1,6 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
   homepage "https://holler.72olabs.ai"
-  version "0.8.0"
   license "Apache-2.0"
   revision 1
 
