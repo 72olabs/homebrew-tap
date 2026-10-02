@@ -21,16 +21,24 @@ After setup, start Claude or Codex normally.
 
 ## Publishing a Holler version
 
-Publish the matching tag in `72olabs/holler` first. Then generate the formula
-from that immutable GitHub source archive:
+Publish the matching binary release in `72olabs/holler-releases` first. Then
+generate the formula from the public, immutable binary archives:
 
 ```sh
-VERSION=0.5.1
-./scripts/publish-holler-formula "$VERSION"
+VERSION=0.8.0
+./scripts/publish-holler-formula "$VERSION" Apache-2.0
 git add Formula/holler.rb
 git commit -m "holler $VERSION"
 ```
 
-The generator downloads the tag archive, calculates its SHA-256 checksum, and
-renders `Formula/holler.rb` from the tracked template. Do not guess the checksum
-or reuse the checksum of a separately packaged binary archive.
+The generator downloads all three platform archives anonymously, verifies their
+published checksums, and renders `Formula/holler.rb`. No source checkout, Go
+compiler, or GitHub credentials are needed. Linux ARM64 is not currently packaged.
+
+Use the license applicable to the binary release: unchanged 0.8.0 remains
+`Apache-2.0`; `proprietary` is available only for future releases with approved
+product terms. Formula metadata does not itself change a release's license.
+
+Open a PR and wait for installation tests on macOS ARM64, macOS Intel and Linux
+AMD64 before merging. Revision 1 of 0.8.0 migrates existing source-built installs
+to the packaged binary without changing Holler's version or deleting its data.

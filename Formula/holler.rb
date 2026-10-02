@@ -1,31 +1,32 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
-  homepage "https://github.com/72olabs/holler"
-  url "https://github.com/72olabs/holler/archive/refs/tags/v0.8.0.tar.gz"
-  sha256 "afac550aee516cd7dc419a6c471623b7da7f5b9d2e77f1c60db7ced18253e3d7"
+  homepage "https://holler.72olabs.ai"
   license "Apache-2.0"
+  revision 1
 
-  depends_on "go" => :build
+  on_macos do
+    on_arm do
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.0/holler-0.8.0-darwin-arm64.tar.gz"
+      sha256 "f4f536bdf9c6a302652ab19c06edac9deeb8afd642a78efb1eb7d74e14e28c5c"
+    end
+    on_intel do
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.0/holler-0.8.0-darwin-amd64.tar.gz"
+      sha256 "132866e070f970123f8822ce89b63a9336ff08291a7c3522d0f5acce7bb566f5"
+    end
+  end
+
+  on_linux do
+    depends_on arch: :x86_64
+    on_intel do
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.0/holler-0.8.0-linux-amd64.tar.gz"
+      sha256 "63fea1115de69539bfda5aa72b3bdaccc5e7cd49b2e7e77e61b2ee795bade3c7"
+    end
+  end
 
   def install
-    commit = "2f3bad0b27780b6f21180dcda7ae5c366ce8cc02"
-    built_at = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
-    ldflags = %W[
-      -s -w
-      -X github.com/72olabs/holler/internal/buildinfo.Version=#{version}
-      -X github.com/72olabs/holler/internal/buildinfo.Commit=#{commit}
-      -X github.com/72olabs/holler/internal/buildinfo.Dirty=false
-      -X github.com/72olabs/holler/internal/buildinfo.BuiltAt=#{built_at}
-    ]
-    system "go", "build", "-trimpath", "-ldflags", ldflags.join(" "), "-o", bin/"holler", "./cmd/holler"
-    system "go", "build", "-trimpath", "-ldflags", ldflags.join(" "), "-o", bin/"hollerd", "./cmd/hollerd"
-
-    marketplace = pkgshare/"marketplace"
-    marketplace.install "connectors/marketplace/.agents", "connectors/marketplace/.claude-plugin"
-    (marketplace/"plugins").install "connectors/marketplace/plugins/holler"
-    (marketplace/"plugins").install "connectors/marketplace/plugins/claude-holler"
-    (marketplace/"plugins").install "connectors/marketplace/plugins/opencode-holler"
-    doc.install "README.md", "RELEASE-NOTES.md", "SECURITY.md"
+    bin.install "bin/holler", "bin/hollerd"
+    pkgshare.install "share/holler/marketplace"
+    doc.install "README.md", "RELEASE-NOTES.md", "SECURITY.md", "CONVERSATIONS.md", "LICENSE"
   end
 
   def caveats

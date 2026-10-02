@@ -20,20 +20,29 @@ jobs:
       - name: Validate formula Ruby
         run: |
           ruby -c Formula/holler.rb
-          ruby -c Formula/holler.rb.tmpl
 
       - name: Check publisher script
         run: shellcheck scripts/publish-holler-formula
 
   formula:
-    name: Formula install and test (macOS)
-    runs-on: macos-latest
+    name: Binary formula (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15-intel, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
 
       - name: Install formula
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1
         run: |
+          if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            echo /home/linuxbrew/.linuxbrew/bin >> "$GITHUB_PATH"
+          fi
           brew tap 72olabs/tap "$GITHUB_WORKSPACE"
           brew install 72olabs/tap/holler
 
@@ -42,3 +51,8 @@ jobs:
 
       - name: Audit formula
         run: brew audit --strict 72olabs/tap/holler
+
+      - name: Reinstall packaged version
+        run: |
+          brew reinstall 72olabs/tap/holler
+          brew test holler
