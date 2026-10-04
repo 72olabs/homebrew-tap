@@ -1,25 +1,25 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
   homepage "https://holler.72olabs.ai"
-  license "Apache-2.0"
+  license :cannot_represent
   revision 1
 
   on_macos do
     on_arm do
-      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.0/holler-0.8.0-darwin-arm64.tar.gz"
-      sha256 "f4f536bdf9c6a302652ab19c06edac9deeb8afd642a78efb1eb7d74e14e28c5c"
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.1/holler-0.8.1-darwin-arm64.tar.gz"
+      sha256 "41d122dd8979d2fe50c6f01ed9cd446717f55e2d12275d0c0604bce75af0d18f"
     end
     on_intel do
-      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.0/holler-0.8.0-darwin-amd64.tar.gz"
-      sha256 "132866e070f970123f8822ce89b63a9336ff08291a7c3522d0f5acce7bb566f5"
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.1/holler-0.8.1-darwin-amd64.tar.gz"
+      sha256 "2861e2fa1608e73ee96df0c577d7ec81ce63ed50d698a512eca758de0975020b"
     end
   end
 
   on_linux do
     depends_on arch: :x86_64
     on_intel do
-      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.0/holler-0.8.0-linux-amd64.tar.gz"
-      sha256 "63fea1115de69539bfda5aa72b3bdaccc5e7cd49b2e7e77e61b2ee795bade3c7"
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.1/holler-0.8.1-linux-amd64.tar.gz"
+      sha256 "ec180f2b9290f95c21bc03d65fb47808ff4e777e833a3f47f4c9f95115d6800e"
     end
   end
 
