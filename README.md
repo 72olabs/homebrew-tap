@@ -42,3 +42,13 @@ product terms. Formula metadata does not itself change a release's license.
 Open a PR and wait for installation tests on macOS ARM64, macOS Intel and Linux
 AMD64 before merging. Revision 1 of 0.8.0 migrates existing source-built installs
 to the packaged binary without changing Holler's version or deleting its data.
+
+## Repository license
+
+The first-party tap files, scripts, and documentation are proprietary. See
+[LICENSE](LICENSE); normal installation through Homebrew is permitted.
+
+This repository license does not relicense the software a formula installs.
+Each formula's license metadata must match its binary release. The unchanged
+Holler 0.8.0 archives and their formula remain Apache-2.0; future proprietary
+archives must carry their own matching product license.
