@@ -1,6 +1,6 @@
 class Holler < Formula
   desc "Durable local messaging for terminal agents"
-  homepage "https://holler.72olabs.ai"
+  homepage "https://getholler.ai"
   license :cannot_represent
   revision 1
 
