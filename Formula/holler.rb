@@ -6,20 +6,20 @@ class Holler < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.1/holler-0.8.1-darwin-arm64.tar.gz"
-      sha256 "41d122dd8979d2fe50c6f01ed9cd446717f55e2d12275d0c0604bce75af0d18f"
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.2/holler-0.8.2-darwin-arm64.tar.gz"
+      sha256 "7b395c194999932308e8fa6ccc301a70c4a6e5c93f699a429d57b8242e2350a6"
     end
     on_intel do
-      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.1/holler-0.8.1-darwin-amd64.tar.gz"
-      sha256 "2861e2fa1608e73ee96df0c577d7ec81ce63ed50d698a512eca758de0975020b"
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.2/holler-0.8.2-darwin-amd64.tar.gz"
+      sha256 "1b9b94b5c57610c6d169ea207122804ab18cfcb2f807f720a8d9acd8d2b42882"
     end
   end
 
   on_linux do
     depends_on arch: :x86_64
     on_intel do
-      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.1/holler-0.8.1-linux-amd64.tar.gz"
-      sha256 "ec180f2b9290f95c21bc03d65fb47808ff4e777e833a3f47f4c9f95115d6800e"
+      url "https://github.com/72olabs/holler-releases/releases/download/v0.8.2/holler-0.8.2-linux-amd64.tar.gz"
+      sha256 "f532b40b7b76c4de63d3977c910fc378e4bdfa22defb415eee195b26d33e070c"
     end
   end
 
